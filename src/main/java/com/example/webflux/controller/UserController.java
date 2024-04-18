@@ -6,6 +6,7 @@ import com.example.webflux.repository.User;
 import com.example.webflux.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -39,12 +40,13 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public Mono<UserResponse> updateUser(
+    public Mono<ResponseEntity<UserResponse>> updateUser(
             @PathVariable("id") Long id,
             @RequestBody UserCreateRequest request
     ) {
         return userService.update(id, request.getName(), request.getEmail())
-                .map(UserResponse::of);
+                .map(u -> ResponseEntity.ok(UserResponse.of(u)))
+                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
     }
 
     @DeleteMapping("/{id}")
