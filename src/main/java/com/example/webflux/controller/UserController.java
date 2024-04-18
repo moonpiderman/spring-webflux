@@ -5,6 +5,7 @@ import com.example.webflux.dto.UserResponse;
 import com.example.webflux.repository.User;
 import com.example.webflux.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -44,5 +45,13 @@ public class UserController {
     ) {
         return userService.update(id, request.getName(), request.getEmail())
                 .map(UserResponse::of);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Mono<?> deleteUser(
+            @PathVariable("id") Long id
+    ) {
+        return userService.deleteById(id);
     }
 }
