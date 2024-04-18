@@ -18,6 +18,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("")
+    @ResponseStatus(HttpStatus.CREATED)
     public Mono<UserResponse> createUser(
             @RequestBody UserCreateRequest request
     ) {
