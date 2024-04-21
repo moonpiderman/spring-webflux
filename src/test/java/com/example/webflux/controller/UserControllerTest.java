@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import reactor.blockhound.BlockHound;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -22,6 +23,10 @@ import static org.mockito.Mockito.when;
 @WebFluxTest(UserController.class)
 @AutoConfigureWebTestClient
 class UserControllerTest {
+    static {
+        BlockHound.install();
+    }
+
     @Autowired
     private WebTestClient webTestClient;
 
