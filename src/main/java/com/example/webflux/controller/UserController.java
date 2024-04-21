@@ -57,4 +57,12 @@ public class UserController {
     ) {
         return userService.deleteById(id);
     }
+
+    @DeleteMapping("/name/{name}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Mono<?> deleteUserByName(
+            @PathVariable("name") String name
+    ) {
+        return userService.deleteByName(name);
+    }
 }

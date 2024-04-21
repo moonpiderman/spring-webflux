@@ -41,6 +41,10 @@ public class UserService {
         return userR2dbcRepository.deleteById(id);
     }
 
+    public Mono<Void> deleteByName(String name) {
+        return userR2dbcRepository.deleteByName(name);
+    }
+
     // read
     public Flux<User> findAll() {
         return userR2dbcRepository.findAll();
